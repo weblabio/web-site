@@ -4,3 +4,47 @@
     padding: 0;
     border: 0;
 }
+
+html {
+    font-size: 16px;
+}
+
+body {
+    overflow: hidden;
+    background: #0d325b;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1rem;
+    color: #f9f1e9;
+}
+
+body:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: transparent url(../images/bg.jpeg) center no-repeat;
+    background-size: cover;
+    filter: blur(10px) brightness(.7);
+    z-index: 1;
+}
+
+#app {
+    position: relative;
+    z-index: 2;
+}
+
+.app-heading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: 0;
+    padding: 0;
+    font-size: 4rem;
+    font-weight: 400;
+    text-align: center;
+    color: rgba(255,255,255, .85);
+    transform: translate(-50%, -50%);
+}
