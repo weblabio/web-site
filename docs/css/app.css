@@ -48,3 +48,7 @@ body:after {
     color: rgba(255,255,255, .85);
     transform: translate(-50%, -50%);
 }
+
+.app-heading span {
+    background: rgba(254,4,255, 0.18);
+}
