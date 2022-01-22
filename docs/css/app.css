@@ -36,12 +36,17 @@ body:after {
     z-index: 2;
 }
 
-.heading {
+.app-content {
     position: absolute;
-    top: 30%;
+    top: 25%;
     left: 50%;
     text-align: center;
     transform: translateX(-50%);
+}
+
+.heading {
+    display: inline-block;
+    margin-bottom: 25%;
 }
 
 .heading .title {
@@ -66,13 +71,11 @@ body:after {
 }
 
 .logos {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
 }
 
 .logos > .row {
     display: flex;
+    min-height: 45px;
     margin-bottom: 10px;
     flex-flow: row wrap;
     align-items: center;
@@ -91,7 +94,7 @@ body:after {
 }
 
 .logos.projects {
-    bottom: 33%;
+    margin-bottom: 15%;
 }
 
 .logos.projects .logo {
@@ -100,7 +103,6 @@ body:after {
 }
 
 .logos.technologies {
-    bottom: 15%;
 }
 
 .logos.technologies .logo {
@@ -142,4 +144,8 @@ body:after {
 
 .logos .logo.tea-book {
     background-image: url(../images/projects/tea-book.png);
+}
+
+.logos .logo.repeat-me {
+    background-image: url(../images/projects/repeat-me.png);
 }
