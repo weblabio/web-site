@@ -38,7 +38,7 @@ body:after {
 
 .app-content {
     position: absolute;
-    top: 25%;
+    top: 23%;
     left: 50%;
     text-align: center;
     transform: translateX(-50%);
@@ -46,7 +46,7 @@ body:after {
 
 .heading {
     display: inline-block;
-    margin-bottom: 25%;
+    margin-bottom: 20%;
 }
 
 .heading .title {
@@ -63,7 +63,7 @@ body:after {
 
 .heading .description {
     margin: 0;
-    padding: 0 2px 0 0;
+    padding: 0 1px 0 0;
     font-size: 1.5rem;
     font-weight: 400;
     text-align: right;
@@ -113,7 +113,7 @@ body:after {
 .logos .logo.texted {
     width: auto;
     height: auto;
-    font-size: 2.2rem;
+    font-size: 2.0rem;
     font-weight: 500;
     line-height: 1;
 }
@@ -152,4 +152,14 @@ body:after {
 
 .logos .logo.repeat-me {
     background-image: url(../images/projects/repeat-me.png);
+}
+
+.copyright {
+    position: absolute;
+    left: 50%;
+    bottom: 15px;
+    text-align: center;
+    text-transform: uppercase;
+    transform: translateX(-50%);
+    color: rgba(22, 165, 255, 0.35);
 }
