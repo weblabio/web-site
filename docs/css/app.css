@@ -128,6 +128,10 @@ body:after {
     background-image: url(../images/technologies/vue.png);
 }
 
+.logos .logo.nuxt {
+    background-image: url(../images/technologies/nuxt.png);
+}
+
 .logos .logo.onfly {
     width: 130px;
     background-image: url(../images/projects/onfly.svg);
