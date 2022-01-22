@@ -38,10 +38,10 @@ body:after {
 
 .heading {
     position: absolute;
-    top: 50%;
+    top: 30%;
     left: 50%;
     text-align: center;
-    transform: translate(-50%, -80%);
+    transform: translateX(-50%);
 }
 
 .heading .title {
@@ -65,37 +65,81 @@ body:after {
     color: rgba(255,255,255, .85);
 }
 
-.projects {
-}
-
-.technologies {
-    display: flex;
-    align-items: center;
+.logos {
     position: absolute;
-    bottom: 20%;
     left: 50%;
     transform: translateX(-50%);
 }
 
-.technologies .logo {
+.logos > .row {
+    display: flex;
+    margin-bottom: 10px;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.logos .logo {
     display: block;
-    width: 64px;
-    height: 64px;
     background: transparent center no-repeat;
     background-size: 100% auto;
     font-size: 0;
 }
 
-.technologies .logo + .logo {
+.logos .logo + .logo {
     margin-left: 20px;
 }
 
-.technologies .logo.laravel {
-    background-image: url(../images/laravel.png);
+.logos.projects {
+    bottom: 33%;
 }
 
-.technologies .logo.vue {
+.logos.projects .logo {
+    width: 64px;
+    height: 64px;
+}
+
+.logos.technologies {
+    bottom: 15%;
+}
+
+.logos.technologies .logo {
+    width: 64px;
+    height: 64px;
+}
+
+.logos .logo.texted {
+    width: auto;
+    height: auto;
+    font-size: 2.2rem;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.logos .logo.laravel {
+    background-image: url(../images/technologies/laravel.png);
+}
+
+.logos .logo.vue {
     width: 52px;
     height: 52px;
-    background-image: url(../images/vue.png);
+    background-image: url(../images/technologies/vue.png);
+}
+
+.logos .logo.onfly {
+    width: 130px;
+    background-image: url(../images/projects/onfly.svg);
+    background-position-y: bottom;
+}
+
+.logos .logo.ltt {
+    background-image: url(../images/projects/ltt.png);
+}
+
+.logos .logo.selectus {
+    background-image: url(../images/projects/selectus.png);
+}
+
+.logos .logo.tea-book {
+    background-image: url(../images/projects/tea-book.png);
 }
