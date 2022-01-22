@@ -79,12 +79,15 @@ body:after {
 
 .technologies .logo {
     display: block;
-    margin-right: 20px;
     width: 64px;
     height: 64px;
     background: transparent center no-repeat;
     background-size: 100% auto;
     font-size: 0;
+}
+
+.technologies .logo + .logo {
+    margin-left: 20px;
 }
 
 .technologies .logo.laravel {
