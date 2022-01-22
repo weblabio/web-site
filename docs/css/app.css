@@ -58,7 +58,7 @@ body:after {
 
 .heading .description {
     margin: 0;
-    padding: 0;
+    padding: 0 2px 0 0;
     font-size: 1.5rem;
     font-weight: 400;
     text-align: right;
