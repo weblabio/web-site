@@ -61,7 +61,7 @@ body:after {
     padding: 0;
     font-size: 1.5rem;
     font-weight: 400;
-    text-align: center;
+    text-align: right;
     color: rgba(255,255,255, .85);
 }
 
