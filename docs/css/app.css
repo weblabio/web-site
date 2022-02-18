@@ -132,6 +132,12 @@ body:after {
     background-image: url(../images/technologies/nuxt.png);
 }
 
+.logos .logo.flutter {
+    width: 52px;
+    height: 52px;
+    background-image: url(../images/technologies/flutter.png);
+}
+
 .logos .logo.onfly {
     width: 130px;
     background-image: url(../images/projects/onfly.svg);
