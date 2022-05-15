@@ -160,6 +160,10 @@ body:after {
     background-image: url(../images/projects/repeat-me.png);
 }
 
+.logos .logo.gym-book {
+    background-image: url(../images/projects/gym-book.png);
+}
+
 .copyright {
     position: absolute;
     left: 50%;
