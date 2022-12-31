@@ -164,6 +164,18 @@ body:after {
     background-image: url(../images/projects/gym-book.png);
 }
 
+.logos .logo.inventory {
+    background-image: url(../images/projects/inventory.png);
+}
+
+.logos .logo.dream-book {
+    background-image: url(../images/projects/dream-book.png);
+}
+
+.logos .logo.jbs {
+    background-image: url(../images/projects/jbs.png);
+}
+
 .copyright {
     position: absolute;
     left: 50%;
