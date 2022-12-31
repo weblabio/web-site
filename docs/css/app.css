@@ -176,6 +176,10 @@ body:after {
     background-image: url(../images/projects/jbs.png);
 }
 
+.logos .logo.laraway {
+    background-image: url(../images/projects/laraway.png);
+}
+
 .copyright {
     position: absolute;
     left: 50%;
