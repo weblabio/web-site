@@ -180,6 +180,14 @@ body:after {
     background-image: url(../images/projects/laraway.png);
 }
 
+.logos .logo.doit {
+    background-image: url(../images/projects/doit.png);
+}
+
+.logos .logo.story-hub {
+    background-image: url(../images/projects/story-hub.png);
+}
+
 .copyright {
     position: absolute;
     left: 50%;
