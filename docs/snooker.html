@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Snooker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            padding: 0 20px;
+            background: #1b1b1b;
+            font-size: 30px;
+            color: #fff;
+        }
+        #app {
+            position: fixed;
+            top: 50%;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            transform: translateY(-50%);
+        }
+        .vs {
+            flex-shrink: 3;
+            flex-grow: 0;
+            font-size: 25px;
+        }
+        .control {
+            padding: 5px 10px;
+            line-height: 1;
+            border: 0;
+            border-radius: 10px;
+            background-color: green;
+            font-size: 30px;
+            color: #fff;
+            cursor: pointer;
+        }
+        .control.left {
+            transform: rotate(180deg);
+        }
+        .control > span {
+            position: relative;
+            top: 2px;
+        }
+        .score {
+            display: inline-block;
+            pading: 5px 10px;
+            width: 60px;
+            border: 0;
+            background: transparent;
+            text-align: center;
+            font-size: 30px;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div>
+        <input
+            type="text"
+            name="left_score"
+            value="0"
+            class="score"
+            placeholder="---"
+        />
+        <button class="control left" data-target="left_score">
+            <span>⮕</span>
+        </button>
+    </div>
+    <div class="vs">VS</div>
+    <div>
+        <button class="control right" data-target="right_score">
+            <span>⮕</span>
+        </button>
+        <input
+            type="text"
+            name="right_score"
+            value="0"
+            class="score"
+            placeholder="---"
+        />
+    </div>
+</div>
+<script>
+    const leftScore = document.querySelector('input[name="left_score"]')
+    const rightScore = document.querySelector('input[name="right_score"]')
+
+    leftScore.setAttribute('value', localStorage.getItem('left_score') || 0)
+    rightScore.setAttribute('value', localStorage.getItem('right_score') || 0)
+
+    leftScore.onchange = () => {
+        localStorage.setItem('left_score', leftScore.value || 0)
+    }
+
+    rightScore.onchange = () => {
+        localStorage.setItem('right_score', rightScore.value || 0)
+    }
+
+    document.querySelector('button.control.left').addEventListener('click', () => {
+        leftScore.value = +(leftScore.value || 0) + 1
+        leftScore.dispatchEvent(new Event('change'));
+    })
+
+    document.querySelector('button.control.right').addEventListener('click', () => {
+        rightScore.value = +(rightScore.value || 0) + 1
+        rightScore.dispatchEvent(new Event('change'));
+    })
+</script>
+</body>
+</html>
