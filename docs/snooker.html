@@ -21,6 +21,7 @@
             background-repeat: no-repeat;
             background-position: top center;
             background-size: cover;
+            text-shadow: 1px 1px 1px #000;
             font-family: sans-serif;
             font-size: 30px;
             color: #fff;
@@ -79,6 +80,7 @@
             border: 0;
             background: transparent;
             text-align: center;
+            text-shadow: 1px 1px 1px #000;
             font-size: 30px;
             color: #fff;
         }
@@ -117,22 +119,66 @@
         <div>Сыграно: <span class="played">0</span></div>
         <div>Перевес: <span class="diff">0</span></div>
         <div>Осталось: <span class="remainder">0</span></div>
+        <div><span class="left-probability">0</span>% Шансы <span class="right-probability">0</span>%</div>
     </div>
 </div>
 <script>
+(() => {
+    function calculateProbability(leftScore, rightScore, totalGames) {
+        function binomialCoefficient(n, k) {
+            if (k > n) {
+                return 0
+            }
+
+            if (k === 0 || k === n) {
+                return 1
+            }
+
+            let coeff = 1
+
+            for (let i = 1; i <= k; i++) {
+                coeff *= (n - i + 1) / i
+            }
+
+            return coeff
+        }
+
+        const remainingGames = totalGames - leftScore - rightScore
+        const currentDifference = rightScore - leftScore
+        const threshold = Math.ceil((remainingGames + currentDifference) / 2)
+        const probabilityPerGame = 0.5
+
+        let probabilityLeft = 0
+
+        for (let x = threshold; x <= remainingGames; x++) {
+            const binomCoeff = binomialCoefficient(remainingGames, x)
+
+            probabilityLeft += binomCoeff * Math.pow(probabilityPerGame, x) * Math.pow(1 - probabilityPerGame, remainingGames - x)
+        }
+
+        const probabilityRight = 1 - probabilityLeft
+
+        return {
+            probabilityLeft: (Math.max(0, Math.min(1, probabilityLeft)) * 100).toFixed(1),
+            probabilityRight: (Math.max(0, Math.min(1, probabilityRight)) * 100).toFixed(1)
+        }
+    }
+
+    const totalGames = 127
+
     const leftScore = document.querySelector('input[name="left_score"]')
     const rightScore = document.querySelector('input[name="right_score"]')
-
-    const played = document.querySelector('.played')
-    const diff = document.querySelector('.diff')
-    const remainder = document.querySelector('.remainder')
 
     function refreshSummary() {
         const total = +leftScore.value + +rightScore.value
 
-        played.innerHTML = total
-        diff.innerHTML = Math.abs(+leftScore.value - +rightScore.value)
-        remainder.innerHTML = 127 - total
+        const { probabilityLeft, probabilityRight } = calculateProbability(+leftScore.value, +rightScore.value, totalGames);
+
+        document.querySelector('.played').innerHTML = total
+        document.querySelector('.diff').innerHTML = Math.abs(+leftScore.value - +rightScore.value)
+        document.querySelector('.remainder').innerHTML = totalGames - total
+        document.querySelector('.left-probability').innerHTML = probabilityLeft
+        document.querySelector('.right-probability').innerHTML = probabilityRight
     }
 
     leftScore.value = localStorage.getItem('left_score') || 0
@@ -141,12 +187,22 @@
     refreshSummary()
 
     leftScore.onchange = () => {
+        if (isNaN(leftScore.value)) {
+            return
+        }
+
         refreshSummary()
+
         localStorage.setItem('left_score', leftScore.value || 0)
     }
 
     rightScore.onchange = () => {
+        if (isNaN(rightScore.value)) {
+            return
+        }
+
         refreshSummary()
+
         localStorage.setItem('right_score', rightScore.value || 0)
     }
 
@@ -159,6 +215,7 @@
         rightScore.value = +(rightScore.value || 0) + 1
         rightScore.dispatchEvent(new Event('change'));
     })
+})()
 </script>
 </body>
 </html>
