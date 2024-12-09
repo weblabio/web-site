@@ -21,16 +21,31 @@
             background-repeat: no-repeat;
             background-position: top center;
             background-size: cover;
+            font-family: sans-serif;
             font-size: 30px;
             color: #fff;
         }
         #app {
             display: flex;
-            justify-content: space-around;
-            align-items: center;
+            flex-direction: column;
+            justify-content: center;
             height: 100vh;
             background: rgba(0,0,0, .5);
             backdrop-filter: blur(4px);
+        }
+        .summary-panel {
+            margin: 20px auto 0;
+            text-align: center;
+            font-size: 16px;
+            color: rgba(255,255,255, .5);
+        }
+        .summary-panel span {
+            color: rgba(255,255,255, .7);
+        }
+        .control-panel {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
         }
         .vs {
             flex-shrink: 3;
@@ -68,44 +83,68 @@
 </head>
 <body>
 <div id="app">
-    <div>
-        <input
-            type="text"
-            name="left_score"
-            value="0"
-            class="score"
-            placeholder="---"
-        />
-        <button class="control left" data-target="left_score">
-            <span>⮕</span>
-        </button>
+    <div class="control-panel">
+        <div>
+            <input
+                    type="text"
+                    name="left_score"
+                    value="0"
+                    class="score"
+                    placeholder="---"
+            />
+            <button class="control left" data-target="left_score">
+                <span>⮕</span>
+            </button>
+        </div>
+        <div class="vs">VS</div>
+        <div>
+            <button class="control right" data-target="right_score">
+                <span>⮕</span>
+            </button>
+            <input
+                    type="text"
+                    name="right_score"
+                    value="0"
+                    class="score"
+                    placeholder="---"
+            />
+        </div>
     </div>
-    <div class="vs">VS</div>
-    <div>
-        <button class="control right" data-target="right_score">
-            <span>⮕</span>
-        </button>
-        <input
-            type="text"
-            name="right_score"
-            value="0"
-            class="score"
-            placeholder="---"
-        />
+    <div class="summary-panel">
+        <div>Ставок: <span class="total">0</span></div>
+        <div>Отрыв: <span class="diff">0</span></div>
     </div>
 </div>
 <script>
     const leftScore = document.querySelector('input[name="left_score"]')
     const rightScore = document.querySelector('input[name="right_score"]')
 
-    leftScore.setAttribute('value', localStorage.getItem('left_score') || 0)
-    rightScore.setAttribute('value', localStorage.getItem('right_score') || 0)
+    const total = document.querySelector('.total')
+    const diff = document.querySelector('.diff')
+
+    function updateTotal() {
+        total.innerHTML = +leftScore.value + +rightScore.value
+    }
+
+    function updateDiff() {
+        diff.innerHTML = Math.abs(+leftScore.value - +rightScore.value)
+    }
+
+    leftScore.value = localStorage.getItem('left_score') || 0
+    rightScore.value = localStorage.getItem('right_score') || 0
+
+    updateTotal()
+    updateDiff()
 
     leftScore.onchange = () => {
+        updateTotal()
+        updateDiff()
         localStorage.setItem('left_score', leftScore.value || 0)
     }
 
     rightScore.onchange = () => {
+        updateTotal()
+        updateDiff()
         localStorage.setItem('right_score', rightScore.value || 0)
     }
 
