@@ -42,6 +42,9 @@
         .summary-panel span {
             color: rgba(255,255,255, .7);
         }
+        .summary-panel > div {
+            margin-bottom: 3px;
+        }
         .control-panel {
             display: flex;
             justify-content: space-around;
@@ -111,40 +114,39 @@
         </div>
     </div>
     <div class="summary-panel">
-        <div>Ставок: <span class="total">0</span></div>
-        <div>Отрыв: <span class="diff">0</span></div>
+        <div>Сыграно: <span class="played">0</span></div>
+        <div>Перевес: <span class="diff">0</span></div>
+        <div>Осталось: <span class="remainder">0</span></div>
     </div>
 </div>
 <script>
     const leftScore = document.querySelector('input[name="left_score"]')
     const rightScore = document.querySelector('input[name="right_score"]')
 
-    const total = document.querySelector('.total')
+    const played = document.querySelector('.played')
     const diff = document.querySelector('.diff')
+    const remainder = document.querySelector('.remainder')
 
-    function updateTotal() {
-        total.innerHTML = +leftScore.value + +rightScore.value
-    }
+    function refreshSummary() {
+        const total = +leftScore.value + +rightScore.value
 
-    function updateDiff() {
+        played.innerHTML = total
         diff.innerHTML = Math.abs(+leftScore.value - +rightScore.value)
+        remainder.innerHTML = 127 - total
     }
 
     leftScore.value = localStorage.getItem('left_score') || 0
     rightScore.value = localStorage.getItem('right_score') || 0
 
-    updateTotal()
-    updateDiff()
+    refreshSummary()
 
     leftScore.onchange = () => {
-        updateTotal()
-        updateDiff()
+        refreshSummary()
         localStorage.setItem('left_score', leftScore.value || 0)
     }
 
     rightScore.onchange = () => {
-        updateTotal()
-        updateDiff()
+        refreshSummary()
         localStorage.setItem('right_score', rightScore.value || 0)
     }
 
