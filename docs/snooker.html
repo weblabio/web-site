@@ -84,6 +84,13 @@
             font-size: 30px;
             color: #fff;
         }
+        .score.small {
+            padding: 0;
+            width: 30px;
+            border: 0;
+            font-size: inherit;
+            color: inherit;
+        }
     </style>
 </head>
 <body>
@@ -91,11 +98,11 @@
     <div class="control-panel">
         <div>
             <input
-                    type="text"
-                    name="left_score"
-                    value="0"
-                    class="score"
-                    placeholder="---"
+                type="text"
+                name="left_score"
+                value="0"
+                class="score"
+                placeholder="---"
             />
             <button class="control left" data-target="left_score">
                 <span>⮕</span>
@@ -107,16 +114,27 @@
                 <span>⮕</span>
             </button>
             <input
-                    type="text"
-                    name="right_score"
-                    value="0"
-                    class="score"
-                    placeholder="---"
+                type="text"
+                name="right_score"
+                value="0"
+                class="score"
+                placeholder="---"
             />
         </div>
     </div>
     <div class="summary-panel">
-        <div>Завершено: <span class="played">0</span></div>
+        <div>
+            Завершено:
+            <span class="played">0</span>
+            из
+            <input
+                type="text"
+                name="total_games"
+                value="0"
+                class="score small"
+                placeholder="---"
+            />
+        </div>
         <div>Перевес: <span class="diff">0</span></div>
         <div>Осталось: <span class="remainder">0</span></div>
         <div><span class="left-probability">0</span>% Шансы <span class="right-probability">0</span>%</div>
@@ -164,57 +182,50 @@
         }
     }
 
-    const totalGames = 127
-
+    const totalMax = 127
+    const totalGames = document.querySelector('input[name="total_games"]')
     const leftScore = document.querySelector('input[name="left_score"]')
     const rightScore = document.querySelector('input[name="right_score"]')
 
     function refreshSummary() {
         const total = +leftScore.value + +rightScore.value
 
-        const { probabilityLeft, probabilityRight } = calculateProbability(+leftScore.value, +rightScore.value, totalGames);
+        const { probabilityLeft, probabilityRight } = calculateProbability(+leftScore.value, +rightScore.value, +totalGames.value);
 
         document.querySelector('.played').innerHTML = total
         document.querySelector('.diff').innerHTML = Math.abs(+leftScore.value - +rightScore.value)
-        document.querySelector('.remainder').innerHTML = totalGames - total
+        document.querySelector('.remainder').innerHTML = +totalGames.value - total
         document.querySelector('.left-probability').innerHTML = probabilityLeft
         document.querySelector('.right-probability').innerHTML = probabilityRight
     }
 
+    function onChangeInput(name, value, defaultValue) {
+        if (isNaN(value)) {
+            return
+        }
+
+        refreshSummary()
+
+        localStorage.setItem(name, value || defaultValue)
+    }
+
+    function upScore(input) {
+        input.value = +(input.value || 0) + 1
+        input.dispatchEvent(new Event('change'))
+    }
+
+    totalGames.value = localStorage.getItem('total_games') || totalMax
     leftScore.value = localStorage.getItem('left_score') || 0
     rightScore.value = localStorage.getItem('right_score') || 0
 
     refreshSummary()
 
-    leftScore.onchange = () => {
-        if (isNaN(leftScore.value)) {
-            return
-        }
+    leftScore.onchange = () => onChangeInput('left_score', leftScore.value, 0)
+    rightScore.onchange = () => onChangeInput('right_score', rightScore.value, 0)
+    totalGames.onchange = () => onChangeInput('total_games', totalGames.value, totalMax)
 
-        refreshSummary()
-
-        localStorage.setItem('left_score', leftScore.value || 0)
-    }
-
-    rightScore.onchange = () => {
-        if (isNaN(rightScore.value)) {
-            return
-        }
-
-        refreshSummary()
-
-        localStorage.setItem('right_score', rightScore.value || 0)
-    }
-
-    document.querySelector('button.control.left').addEventListener('click', () => {
-        leftScore.value = +(leftScore.value || 0) + 1
-        leftScore.dispatchEvent(new Event('change'));
-    })
-
-    document.querySelector('button.control.right').addEventListener('click', () => {
-        rightScore.value = +(rightScore.value || 0) + 1
-        rightScore.dispatchEvent(new Event('change'));
-    })
+    document.querySelector('button.control.left').addEventListener('click', () => upScore(leftScore))
+    document.querySelector('button.control.right').addEventListener('click', () => upScore(rightScore))
 })()
 </script>
 </body>
